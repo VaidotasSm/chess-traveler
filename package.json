@@ -1,0 +1,41 @@
+{
+  "name": "chess-traveler",
+  "version": "0.1.0",
+  "description": "Manage chess variation tree state - next/previous moves, variations...",
+  "author": "vaidotas.sm",
+  "keywords": [
+    "chess",
+    "variations",
+    "pgn",
+    "tree"
+  ],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "lint": "eslint src --ext .ts",
+    "build": "tsc",
+    "prebuild": "npm run lint",
+    "prepublish": "npm run lint && npm test"
+  },
+  "dependencies": {
+    "lodash": "^4.17.19"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.4",
+    "@types/lodash": "^4.14.157",
+    "@typescript-eslint/eslint-plugin": "^3.6.1",
+    "@typescript-eslint/parser": "^3.6.1",
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.1.0",
+    "ts-jest": "^26.1.2",
+    "typescript": "^3.9.6"
+  }
+}
