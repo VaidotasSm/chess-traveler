@@ -1,5 +1,5 @@
 import { moveBack, moveForward } from './chess-traveler';
-import { findMatchingMove, getMove, getPreviousMadeMove, toMoveHistoryLine } from './move-finder';
+import { getNextMove, getMove, getPreviousMadeMove, toMoveHistoryLine } from './move-finder';
 import { addVariation, promoteVariation, removeVariation } from './variations';
 import { CurrentMoveCoordinates, INITIAL_COORDINATES, ChessMove, IChessTraveler } from './chess-traveler.types';
 
@@ -9,7 +9,7 @@ export {
   moveBack,
   getMove,
   getPreviousMadeMove,
-  findMatchingMove,
+  getNextMove,
   toMoveHistoryLine,
   addVariation,
   removeVariation,
@@ -39,8 +39,8 @@ class ChessTraveler implements IChessTraveler {
   getPreviousMadeMove(mainLine: ChessMove[]) {
     return getPreviousMadeMove(mainLine, this.coordinates);
   }
-  findMatchingMove(mainLine: ChessMove[], newMove?: string) {
-    return findMatchingMove(mainLine, this.coordinates, newMove);
+  getNextMove(mainLine: ChessMove[], newMove?: string) {
+    return getNextMove(mainLine, this.coordinates, newMove);
   }
   toMoveHistoryLine(mainLine: ChessMove[]): ChessMove[] {
     return toMoveHistoryLine(mainLine, this.coordinates.history);

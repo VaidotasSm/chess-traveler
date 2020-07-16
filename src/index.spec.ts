@@ -1,5 +1,11 @@
-import { ChessMove, CurrentMove, INITIAL_COORDINATES, MatchingMoveResult, Move, Traveler } from './index';
-import { findMatchingMove, toMoveHistoryLine } from './move-finder';
+import {
+  ChessMove,
+  CurrentMove,
+  MatchingMoveResult,
+  Move,
+  Traveler,
+  AddVariationResult,
+} from './index';
 
 describe('chess traveler DEMO - lib usage', () => {
   const mainLine: ChessMove[] = [
@@ -41,27 +47,28 @@ describe('chess traveler DEMO - lib usage', () => {
       });
     });
 
-    it('findMatchingMove - get move by raw from all variations if exists', () => {
+    it('getNextMove - get move by raw from all variations if exists', () => {
       let matching: MatchingMoveResult;
-      matching = findMatchingMove(mainLine, INITIAL_COORDINATES, 'd4');
+      const traveler = Traveler();
+      matching = traveler.getNextMove(mainLine, 'd4');
       expect(matching).toEqual({ matchingMove: mainLine[0], isMain: true });
 
-      matching = findMatchingMove(mainLine, INITIAL_COORDINATES, 'e4');
+      matching = traveler.getNextMove(mainLine, 'e4');
       expect(matching).toEqual({ matchingMove: mainLine[0].variations[0][0], isMain: false });
 
-      matching = findMatchingMove(mainLine, INITIAL_COORDINATES, 'c4');
+      matching = traveler.getNextMove(mainLine, 'c4');
       expect(matching).toEqual({ matchingMove: mainLine[0].variations[1][0], isMain: false });
 
-      matching = findMatchingMove(mainLine, INITIAL_COORDINATES, 'f4');
+      matching = traveler.getNextMove(mainLine, 'f4');
       expect(matching).toEqual({ isMain: false });
 
-      matching = findMatchingMove(mainLine, INITIAL_COORDINATES, undefined);
+      matching = traveler.getNextMove(mainLine, undefined);
       expect(matching).toEqual({ isMain: false });
     });
 
     it('toMoveHistoryLine - map move history to ChessMove array', () => {
       const coords = { current: [2], history: [[0], [1]] };
-      const moves: ChessMove[] = toMoveHistoryLine(mainLine, coords.history);
+      const moves: ChessMove[] = Traveler(coords).toMoveHistoryLine(mainLine);
       expect(moves).toEqual([mainLine[0], mainLine[1]]);
     });
   });
@@ -70,7 +77,7 @@ describe('chess traveler DEMO - lib usage', () => {
     const coords = { current: [2], history: [[0], [1]] };
 
     it('addVariation - add alternative variation to next move', () => {
-      const result = Traveler(coords).addVariation(mainLine, 'Nf3');
+      const result: AddVariationResult = Traveler(coords).addVariation(mainLine, 'Nf3');
       expect(result).toEqual({
         move: Move('Nf3'),
         modifiedMainLine: [

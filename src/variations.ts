@@ -1,15 +1,15 @@
 import _ from 'lodash';
-import { ChessMove, CurrentMoveCoordinates, Move } from './chess-traveler.types';
+import { ChessMove, CurrentMoveCoordinates, Move, AddVariationResult } from './chess-traveler.types';
 import { replaceArrayItems } from './chess.traveler.utils';
-import { findMatchingMove, getMove, isEndOfVariationReached } from './move-finder';
+import { getNextMove, getMove, isEndOfVariationReached } from './move-finder';
 
 export function addVariation(
   mainLine: ChessMove[],
   c: CurrentMoveCoordinates,
   newMove: string,
   options: { immutable: boolean } = { immutable: true }
-): { move: ChessMove; modifiedMainLine?: ChessMove[] } {
-  const { matchingMove } = findMatchingMove(mainLine, c, newMove);
+): AddVariationResult {
+  const { matchingMove } = getNextMove(mainLine, c, newMove);
   if (matchingMove) {
     return { move: matchingMove };
   }
@@ -44,7 +44,7 @@ export function removeVariation(
     return null;
   }
 
-  const { matchingMove, isMain } = findMatchingMove(modifiedMainLine, c, moveToRemove.raw);
+  const { matchingMove, isMain } = getNextMove(modifiedMainLine, c, moveToRemove.raw);
 
   if (!isMain) {
     // remove variation

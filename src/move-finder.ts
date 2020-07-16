@@ -51,7 +51,7 @@ export function getPreviousMadeMove(mainLine: ChessMove[], cords: CurrentMoveCoo
   return getMove(mainLine, getLast(cords.history));
 }
 
-export function findMatchingMove(
+export function getNextMove(
   mainLine: ChessMove[],
   c: CurrentMoveCoordinates,
   newMove?: string,

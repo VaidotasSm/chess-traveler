@@ -1,6 +1,6 @@
 import { ChessMove, Move as M, INITIAL_COORDINATES } from './chess-traveler.types';
 import {
-  findMatchingMove,
+  getNextMove,
   getMove,
   getPreviousMadeMove,
   isEndOfVariationReached,
@@ -118,7 +118,7 @@ describe('chess-traveler#move-finder', () => {
     });
   });
 
-  describe('findMatchingMove - find move among current move or its variations', () => {
+  describe('getNextMove - find move among current move or its variations', () => {
     const mainLine: ChessMove[] = [
       M('d4', [
         [M('e4'), M('e5', [[M('e6'), M('d4'), M('d5')]])],
@@ -130,20 +130,20 @@ describe('chess-traveler#move-finder', () => {
     ];
 
     it('should find main line move when no variations exist', () => {
-      const { matchingMove } = findMatchingMove(mainLine, { current: [1], history: [[0]] }, 'd5');
+      const { matchingMove } = getNextMove(mainLine, { current: [1], history: [[0]] }, 'd5');
       expect(matchingMove?.raw).toBe('d5');
     });
 
     it('should find main line move when variations exist', () => {
-      const { matchingMove } = findMatchingMove(mainLine, { current: [0], history: [] }, 'd4');
+      const { matchingMove } = getNextMove(mainLine, { current: [0], history: [] }, 'd4');
       expect(matchingMove?.raw).toBe('d4');
     });
 
     it('should find variation move', () => {
-      let res = findMatchingMove(mainLine, { current: [0], history: [] }, 'e4');
+      let res = getNextMove(mainLine, { current: [0], history: [] }, 'e4');
       expect(res.matchingMove?.raw).toBe('e4');
 
-      res = findMatchingMove(mainLine, { current: [0], history: [] }, 'c4');
+      res = getNextMove(mainLine, { current: [0], history: [] }, 'c4');
       expect(res.matchingMove?.raw).toBe('c4');
     });
   });

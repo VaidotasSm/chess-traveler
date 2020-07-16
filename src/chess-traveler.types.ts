@@ -27,6 +27,8 @@ export interface CurrentMove {
 
 export type MatchingMoveResult = { matchingMove?: ChessMove | null; isMain: boolean };
 
+export type AddVariationResult = { move: ChessMove; modifiedMainLine?: ChessMove[] };
+
 export interface IChessTraveler {
   coordinates: CurrentMoveCoordinates;
 
@@ -35,14 +37,10 @@ export interface IChessTraveler {
 
   getMove(mainLine: ChessMove[]): CurrentMove;
   getPreviousMadeMove(mainLine: ChessMove[]): CurrentMove;
-  findMatchingMove(mainLine: ChessMove[], newMove?: string): MatchingMoveResult;
+  getNextMove(mainLine: ChessMove[], newMove?: string): MatchingMoveResult;
   toMoveHistoryLine(mainLine: ChessMove[]): ChessMove[];
 
-  addVariation(
-    mainLine: ChessMove[],
-    newMove: string,
-    options?: { immutable: boolean }
-  ): { move: ChessMove; modifiedMainLine?: ChessMove[] };
+  addVariation(mainLine: ChessMove[], newMove: string, options?: { immutable: boolean }): AddVariationResult;
   removeVariation(mainLine: ChessMove[], moveToRemove: ChessMove, options?: { immutable: boolean }): ChessMove[] | null;
   promoteVariation(
     mainLine: ChessMove[],
