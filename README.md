@@ -30,8 +30,13 @@ Each move might have variations, in other libs it is usually represented as mult
 ]
 ```
 
-## Example
+## Examples
 
+**Import**
+
+```JavaScript
+import { Traveler } from 'chess-traveler';
+```
 
 **Create instance**
 
