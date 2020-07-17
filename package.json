@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Manage chess variation tree state - next/previous moves, variations...",
   "author": "vaidotas.sm",
+  "homepage": "https://github.com/VaidotasSm/chess-traveler",
   "keywords": [
     "chess",
     "variations",
