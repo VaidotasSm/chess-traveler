@@ -88,7 +88,7 @@ Promote variation. Variations are ordered - "main line" contains variations whic
 const modifiedMainLine: ChessMove[] | null = Traveler().promoteVariation(mainLine, Move('e4'));
 ```
 
-** Get Move Info **
+**Get Move Info**
 
 
 Get current move info
